@@ -7,6 +7,8 @@ defmodule BackendWeb.Router do
 
   scope "/api", BackendWeb do
     pipe_through :api
+
+    post "/video/add-on-list", AddVideoController, :add
   end
 
   # Enables LiveDashboard only for development

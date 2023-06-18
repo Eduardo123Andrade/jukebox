@@ -1,15 +1,5 @@
 import Config
 
-# Configure your database
-config :backend, Backend.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "backend_dev",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
-
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -23,7 +13,7 @@ config :backend, BackendWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "f3anGObdinPdLrBQiJxdtN2CeUuMqS6zy7bDkYL8O35a5VEm82oOYrQRHuhHO4BA",
+  secret_key_base: "19++KfbzmJaP8mPFjIIQ052Nczmh7crk9UCVnL9DTRtY0qtGjoAhrbyWSGDqLRnT",
   watchers: []
 
 # ## SSL Support

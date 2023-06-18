@@ -7,15 +7,12 @@
 # General application configuration
 import Config
 
-config :backend,
-  ecto_repos: [Backend.Repo]
-
 # Configures the endpoint
 config :backend, BackendWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: BackendWeb.ErrorView, accepts: ~w(json), layout: false],
   pubsub_server: Backend.PubSub,
-  live_view: [signing_salt: "b6HiLq26"]
+  live_view: [signing_salt: "4F9JiW1u"]
 
 # Configures the mailer
 #
