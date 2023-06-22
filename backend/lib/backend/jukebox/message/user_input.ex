@@ -1,6 +1,6 @@
-defmodule Jukebox.Message.UserInput do
-  alias Jukebox.Message.UserInput
-  @keys [:id, :name, :url]
+defmodule Backend.Jukebox.Message.UserInput do
+  alias Backend.Jukebox.Message.UserInput
+  @keys [:name, :url]
 
   defstruct @keys
 

@@ -1,4 +1,4 @@
-defmodule Jukebox.Video.Video do
+defmodule Backend.Jukebox.Video.Video do
   @keys [:id, :title, :author, :thumbnail, :user_name]
 
   defstruct @keys
