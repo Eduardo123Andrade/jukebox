@@ -1,4 +1,5 @@
 defmodule BackendWeb.AddVideoController do
+  alias Backend.Video.Send
   alias Backend.Video.Add
   alias Youtube.VideoDetail
   use BackendWeb, :controller
@@ -11,16 +12,18 @@ defmodule BackendWeb.AddVideoController do
 
     with {:ok, video_id} <- ValidateUrl.call(url),
          {:ok, video_detail} <- VideoDetail.get_youtube_video_details(video_id) do
-      video_data =
-        video_detail
-        |> Map.put(:user_name, name)
-        |> Map.put(:url, url)
+      # response =
+      video_detail
+      |> Map.put(:user_name, name)
+      |> Map.put(:url, url)
+      |> Add.call()
+      |> Send.call()
 
-      Add.call(video_data)
+      # IO.inspect(response, label: "TEST")
 
       conn
       |> put_status(:ok)
-      |> render("added.json", video_data: video_data)
+      |> render("added.json")
     end
   end
 end
