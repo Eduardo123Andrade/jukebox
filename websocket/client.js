@@ -12,4 +12,12 @@ const channel = socket.channel("room:lobby")
 
 channel
   .join()
-  .receive("ok", resp => {console.log("CONNECTED", resp)})
+  .receive("ok", resp => {
+    console.log("CONNECTED")
+  })
+  
+  channel.on("update_video_list", (response) => {
+    console.log(JSON.stringify(response, null, 2))
+    console.log({count: response.length})
+    console.log("_____")
+  })
