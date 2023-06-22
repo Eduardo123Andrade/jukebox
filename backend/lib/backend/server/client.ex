@@ -1,5 +1,5 @@
 defmodule Backend.Server.Client do
-  alias Jukebox.Video.Video
+  alias Backend.Jukebox.Video.Video
   alias Backend.Server.Server
 
   def start() do

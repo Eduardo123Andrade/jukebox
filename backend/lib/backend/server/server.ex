@@ -1,5 +1,5 @@
 defmodule Backend.Server.Server do
-  alias Jukebox.Video.Video
+  alias Backend.Jukebox.Video.Video
   use GenServer
   require Logger
 
