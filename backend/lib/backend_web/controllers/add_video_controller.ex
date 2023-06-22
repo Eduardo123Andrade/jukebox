@@ -10,7 +10,10 @@ defmodule BackendWeb.AddVideoController do
 
     with {:ok, video_id} <- ValidateUrl.call(url),
          {:ok, video_detail} <- VideoDetail.get_youtube_video_details(video_id) do
-      video_data = Map.put(video_detail, :user_name, name)
+      video_data =
+        video_detail
+        |> Map.put(:user_name, name)
+        |> Map.put(:url, url)
 
       conn
       |> put_status(:ok)
