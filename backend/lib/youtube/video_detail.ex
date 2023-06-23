@@ -1,6 +1,7 @@
 defmodule Youtube.VideoDetail do
   use Tesla
 
+  alias Youtube.ExtractVideoDetail
   alias Backend.Error
   alias Tesla.Env
 
@@ -16,7 +17,7 @@ defmodule Youtube.VideoDetail do
   end
 
   defp handle_get({:ok, %Env{status: 200, body: %{"items" => items}}}) when length(items) > 0 do
-    video_detail = extract_video_detail(items)
+    video_detail = ExtractVideoDetail.call(items)
 
     {:ok, video_detail}
   end
@@ -28,26 +29,5 @@ defmodule Youtube.VideoDetail do
 
   defp handle_get(_) do
     {:error, Error.internal_server_error()}
-  end
-
-  defp extract_video_detail(items) do
-    [details] = items
-    %{"snippet" => snippet, "id" => id} = details
-    %{"title" => title, "channelTitle" => author, "thumbnails" => thumbnails} = snippet
-    %{"default" => default} = thumbnails
-
-    %{
-      "height" => height,
-      "url" => url,
-      "width" => width
-    } = default
-
-    thumbnail = %{
-      height: height,
-      url: url,
-      width: width
-    }
-
-    %{title: title, author: author, thumbnail: thumbnail, id: id}
   end
 end
