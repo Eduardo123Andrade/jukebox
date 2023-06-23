@@ -1,5 +1,5 @@
 export interface Thumbnail {
-  height: 90
-  width: 120
+  height: number
+  width: number
   url: string
 }

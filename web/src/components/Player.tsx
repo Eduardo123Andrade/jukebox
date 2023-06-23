@@ -1,7 +1,9 @@
 import { VideoDetail as VideoDetailInterface } from '@/interfaces'
 import YouTubePlayer, { YouTubeProps } from 'react-youtube'
 import { VideoDetail } from './VideoDetail'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { MOCKED_VIDEO_DETAILS } from '@/utils/mocked'
+import { usePlayer } from '@/hooks/usePlayer'
 
 interface PlayerProps {
   videos: VideoDetailInterface[]
@@ -12,23 +14,10 @@ const renderVideoItem = (video: VideoDetailInterface) => {
   return <VideoDetail key={video.id} video={video} />
 }
 
-export const Player: React.FC<PlayerProps> = ({ videos, updateVideos }) => {
-  const [currentVideo, setCurrentVideo] = useState<VideoDetailInterface>()
+export const Player: React.FC<PlayerProps> = ({}) => {
+  const [{ videos, currentVideo }, { onNextVideo }] = usePlayer()
 
-  useEffect(() => {
-    if (!!videos.length && !currentVideo) {
-      setCurrentVideo(videos[0])
-    }
-  }, [videos, currentVideo])
-
-  const onNextVideo = () => {
-    if (videos.length > 1) {
-      const newVideoList = videos.filter((item) => item.id !== currentVideo.id)
-      updateVideos(newVideoList)
-      const [nextVideo] = newVideoList
-      setCurrentVideo(nextVideo)
-    }
-  }
+  const ref = useRef<YouTubePlayer>(null)
 
   const opts: YouTubeProps['opts'] = {
     height: '390',
@@ -37,6 +26,7 @@ export const Player: React.FC<PlayerProps> = ({ videos, updateVideos }) => {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
       controls: 1,
+      start: 120,
     },
   }
 
@@ -46,9 +36,22 @@ export const Player: React.FC<PlayerProps> = ({ videos, updateVideos }) => {
     <div>
       {!!currentVideo && (
         <YouTubePlayer
+          ref={ref}
           videoId={currentVideo.id}
           onEnd={onNextVideo}
           opts={opts}
+          onPlay={(event) => {
+            event.data
+            console.log({ event })
+            console.log(event.data)
+            // event.target.mute()
+            // event.target
+          }}
+          // style={{
+          //   width: 10,
+          // }}
+          // iframeClassName="w-50"
+          // className="w-50"
         />
       )}
       {videos.map(renderVideoItem)}
