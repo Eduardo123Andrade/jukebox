@@ -1,4 +1,5 @@
 defmodule Validate.ValidateUrl do
+  alias Backend.Error
   @pattern ~r/v=(.*?)&/
 
   def call(url) do
@@ -14,5 +15,5 @@ defmodule Validate.ValidateUrl do
     {:ok, video_id}
   end
 
-  defp get_match(false, _), do: {:error, "Invalid url"}
+  defp get_match(false, _), do: {:error, Error.invalid_url()}
 end
