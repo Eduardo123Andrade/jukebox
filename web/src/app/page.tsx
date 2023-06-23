@@ -2,6 +2,7 @@
 
 import { Player } from '@/components'
 import { ENVIRONMENT_VARIABLES } from '@/config'
+import { usePhoenixChannel } from '@/hooks'
 import { VideoDetail } from '@/interfaces'
 import { API } from '@/lib/api'
 import { ChangeEvent, useRef, useState } from 'react'
@@ -14,6 +15,8 @@ export default function Home() {
   const [inputVideoId, setInputVideoId] = useState<string>()
   const inputRef = useRef<HTMLInputElement>(null)
   const [videos, setVideos] = useState<VideoDetail[]>([])
+
+  usePhoenixChannel()
 
   const requestVideoInfo = async (videoId: string) => {
     const response = await API.get(
