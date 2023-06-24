@@ -2,15 +2,23 @@
 
 import { Header, Player } from '@/components'
 import { PlayerProvider } from '@/providers'
+import { useMemo } from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 export default function Home() {
-  return (
-    <PlayerProvider>
-      <div className="h-screen pl-5 pt-10">
-        <Header />
+  const queryClient = useMemo(() => {
+    return new QueryClient()
+  }, [])
 
-        <Player />
-      </div>
-    </PlayerProvider>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <PlayerProvider>
+        <div className="h-screen pl-5 pt-10">
+          <Header />
+
+          <Player />
+        </div>
+      </PlayerProvider>
+    </QueryClientProvider>
   )
 }
