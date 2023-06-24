@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, useRef, useState } from 'react'
 
 interface HeaderProps {}
 
@@ -32,10 +32,6 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
   const disabled = !name || !url
 
-  useEffect(() => {
-    console.log({ disabled })
-  }, [disabled])
-
   return (
     <div>
       <h1 className="pb-2 text-lg font-bold text-white">Jukebox do Pittalks</h1>
@@ -45,7 +41,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
           <input
             ref={inputRef}
             type="text"
-            className=" w-[30%] rounded "
+            className=" w-[30%] rounded"
             placeholder="Nome"
             onChange={onChangeName}
           />
@@ -53,7 +49,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
           <input
             ref={inputRef}
             type="text"
-            className=" w-[100%] rounded "
+            className="rounded"
             placeholder="Cole o link de video do youtube"
             onChange={onGetIdFromUrl}
           />
@@ -62,8 +58,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
         <button
           disabled={disabled}
           className={`ml-5 w-24 self-end rounded
-           ${disabled ? 'bg-gray-600' : 'bg-blue-900'}
-           `}
+           ${disabled ? 'bg-gray-600' : 'bg-blue-900'}`}
           onClick={addIdOnList}
         >
           <label className="text-white">Adicionar</label>
