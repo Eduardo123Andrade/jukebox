@@ -1,5 +1,5 @@
-import axios from "axios"
+import axios from 'axios'
 
 export const API = axios.create({
-  baseURL: "https://www.googleapis.com/youtube/v3/videos"
+  baseURL: 'http://localhost:4000/api',
 })
