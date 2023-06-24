@@ -1,2 +1,2 @@
-export { Thumbnail } from './Thumbnail';
-export { VideoDetail } from './VideoDetail';
+export type { Thumbnail } from './Thumbnail'
+export type { VideoDetail } from './VideoDetail'
