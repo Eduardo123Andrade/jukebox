@@ -30,7 +30,11 @@ export const Header: React.FC<HeaderProps> = (props) => {
     })
   }
 
-  const disabled = !name && !url
+  const disabled = !name || !url
+
+  useEffect(() => {
+    console.log({ disabled })
+  }, [disabled])
 
   return (
     <div>
