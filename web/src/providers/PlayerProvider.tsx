@@ -1,5 +1,6 @@
+import { usePhoenixChannel } from '@/hooks'
 import { VideoDetail } from '@/interfaces'
-import { MOCKED_VIDEO_DETAILS } from '@/utils/mocked'
+import { PlayerStatus } from '@/types'
 import React, { createContext, useEffect, useState } from 'react'
 
 interface PlayerProviderState {
@@ -9,6 +10,7 @@ interface PlayerProviderState {
 
 interface PlayerProviderActions {
   onNextVideo: () => void
+  onPlayVideo: () => void
 }
 
 type PlayerProviderData = [
@@ -26,18 +28,25 @@ interface PlayerProviderProps {
 
 export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
   const [currentVideo, setCurrentVideo] = useState<VideoDetail>()
+  const [playerStatus, setPlayerStatus] = useState<PlayerStatus>('IDLE')
+  const [videos, setVideos] = useState<VideoDetail[]>([])
 
-  const [videos, setVideos] = useState<VideoDetail[]>(MOCKED_VIDEO_DETAILS)
+  const { onPlayVideo } = usePhoenixChannel({
+    onUpdateVideoList,
+  })
 
   useEffect(() => {
     if (!!videos.length && !currentVideo) {
-      setCurrentVideo(videos[0])
+      const [firstVideo, ...rest] = videos
+      setCurrentVideo(firstVideo)
+      setVideos(rest)
     }
   }, [videos, currentVideo])
 
   const onNextVideo = () => {
-    if (videos.length > 1) {
-      const [, nextCurrentVideo] = videos
+    if (videos.length) {
+      onPlayVideo()
+      const [nextCurrentVideo] = videos
       setCurrentVideo(nextCurrentVideo)
       setVideos((prevState) => {
         const newVideos = prevState.filter(
@@ -48,6 +57,15 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     }
   }
 
+  const _onPlayVideo = () => {
+    if (playerStatus !== 'PLAYING') onPlayVideo()
+    setPlayerStatus('PLAYING')
+  }
+
+  function onUpdateVideoList(videoList: VideoDetail[]) {
+    setVideos(videoList)
+  }
+
   return (
     <PlayerContext.Provider
       children={children}
@@ -55,6 +73,7 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
         { currentVideo, videos },
         {
           onNextVideo,
+          onPlayVideo: _onPlayVideo,
         },
       ]}
     />
