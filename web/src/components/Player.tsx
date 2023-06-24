@@ -1,14 +1,11 @@
-import { VideoDetail as VideoDetailInterface } from '@/interfaces'
-import YouTubePlayer, { YouTubeProps } from 'react-youtube'
-import { VideoDetail } from './VideoDetail'
-import { useEffect, useRef, useState } from 'react'
-import { MOCKED_VIDEO_DETAILS } from '@/utils/mocked'
 import { usePlayer } from '@/hooks/usePlayer'
+import { VideoDetail as VideoDetailInterface } from '@/interfaces'
+import { useRef } from 'react'
+import YouTubePlayer, { YouTubeProps } from 'react-youtube'
+import { NoVideo } from './NoVideo'
+import { VideoDetail } from './VideoDetail'
 
-interface PlayerProps {
-  videos: VideoDetailInterface[]
-  updateVideos: (data: VideoDetailInterface[]) => void
-}
+interface PlayerProps {}
 
 const renderVideoItem = (video: VideoDetailInterface) => {
   return <VideoDetail key={video.id} video={video} />
@@ -20,13 +17,12 @@ export const Player: React.FC<PlayerProps> = ({}) => {
   const ref = useRef<YouTubePlayer>(null)
 
   const opts: YouTubeProps['opts'] = {
-    height: '390',
-    width: '640',
+    height: 500,
+    width: '100%',
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
-      autoplay: 1,
+      // autoplay: 1,
       controls: 1,
-      start: 120,
     },
   }
 
@@ -44,17 +40,11 @@ export const Player: React.FC<PlayerProps> = ({}) => {
             event.data
             console.log({ event })
             console.log(event.data)
-            // event.target.mute()
-            // event.target
           }}
-          // style={{
-          //   width: 10,
-          // }}
-          // iframeClassName="w-50"
-          // className="w-50"
         />
       )}
-      {videos.map(renderVideoItem)}
+      {!currentVideo && videos.length && <NoVideo />}
+      <div className="pt-5">{videos.map(renderVideoItem)}</div>
     </div>
   )
 }
