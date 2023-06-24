@@ -9,7 +9,7 @@ defmodule BackendWeb.AddVideoController do
 
   alias BackendWeb.FallbackController
 
-  action_fallback FallbackController
+  action_fallback(FallbackController)
 
   def add(%Conn{} = conn, params) do
     %{"name" => name, "url" => url} = params

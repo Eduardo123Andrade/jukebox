@@ -16,6 +16,12 @@ defmodule BackendWeb.Endpoint do
     websocket: true,
     longpoll: false
 
+  plug CORSPlug,
+    allow_origin: "*",
+    allow_methods: [:post],
+    allow_headers: true,
+    max_age: 900
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest
