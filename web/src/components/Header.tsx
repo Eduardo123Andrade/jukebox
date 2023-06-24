@@ -45,7 +45,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
           <input
             ref={inputRef}
             type="text"
-            className=" w-[30%] rounded border border-black"
+            className=" w-[30%] rounded "
             placeholder="Nome"
             onChange={onChangeName}
           />
@@ -53,7 +53,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
           <input
             ref={inputRef}
             type="text"
-            className=" w-[100%] rounded border border-black"
+            className=" w-[100%] rounded "
             placeholder="Cole o link de video do youtube"
             onChange={onGetIdFromUrl}
           />
@@ -61,9 +61,9 @@ export const Header: React.FC<HeaderProps> = (props) => {
 
         <button
           disabled={disabled}
-          className={`ml-5 w-24 self-end rounded ${
-            disabled ? 'bg-gray-600' : 'bg-blue-700'
-          }`}
+          className={`ml-5 w-24 self-end rounded
+           ${disabled ? 'bg-gray-600' : 'bg-blue-900'}
+           `}
           onClick={addIdOnList}
         >
           <label className="text-white">Adicionar</label>

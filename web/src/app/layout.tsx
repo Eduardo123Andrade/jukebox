@@ -15,7 +15,7 @@ interface RootLayoutProps {
 const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-950`}>{children}</body>
+      <body className={`${inter.className} bg-gray-900`}>{children}</body>
     </html>
   )
 }
