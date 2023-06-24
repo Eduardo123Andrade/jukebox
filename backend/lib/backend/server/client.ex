@@ -1,10 +1,17 @@
 defmodule Backend.Server.Client do
+  alias Backend.Video.Send
+
   def push(element) do
-    GenServer.call(:jukebox_list, {:push, [element]})
+    response = GenServer.call(:jukebox_list, {:push, [element]})
+    Send.call(response)
+
+    response
   end
 
-  def pop() do
-    GenServer.call(:jukebox_list, :pop)
+  def play_video() do
+    response = GenServer.call(:jukebox_list, :play_video)
+    Send.call(response)
+    response
   end
 
   def get() do
