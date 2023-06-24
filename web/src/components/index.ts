@@ -1,2 +1,3 @@
-export { Player } from "./Player";
-export{ VideoDetail } from "./VideoDetail";
+export { Player } from './Player'
+export { NoVideo } from './NoVideo'
+export { VideoDetail } from './VideoDetail'
