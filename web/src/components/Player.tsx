@@ -4,6 +4,7 @@ import { VideoDetail } from './VideoDetail'
 import { useEffect, useRef, useState } from 'react'
 import { MOCKED_VIDEO_DETAILS } from '@/utils/mocked'
 import { usePlayer } from '@/hooks/usePlayer'
+import { NoVideo } from './NoVideo'
 
 interface PlayerProps {
   videos: VideoDetailInterface[]
@@ -20,8 +21,8 @@ export const Player: React.FC<PlayerProps> = ({}) => {
   const ref = useRef<YouTubePlayer>(null)
 
   const opts: YouTubeProps['opts'] = {
-    height: '390',
-    width: '640',
+    height: 500,
+    width: '100%',
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       autoplay: 1,
@@ -44,17 +45,11 @@ export const Player: React.FC<PlayerProps> = ({}) => {
             event.data
             console.log({ event })
             console.log(event.data)
-            // event.target.mute()
-            // event.target
           }}
-          // style={{
-          //   width: 10,
-          // }}
-          // iframeClassName="w-50"
-          // className="w-50"
         />
       )}
-      {videos.map(renderVideoItem)}
+      {!currentVideo && videos.length && <NoVideo />}
+      <div>{videos.map(renderVideoItem)}</div>
     </div>
   )
 }
