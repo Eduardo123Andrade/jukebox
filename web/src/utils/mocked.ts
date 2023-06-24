@@ -11,7 +11,7 @@ export const MOCKED_VIDEO_DETAILS: VideoDetail[] = [
     author: 'Century Media Records',
     id: 'mjF1rmSV1dM',
     url: 'https://www.youtube.com/watch?v=mjF1rmSV1dM&ab_channel=CenturyMediaRecords',
-    userName: 'Jubba',
+    userName: 'User name',
   },
   {
     title: 'Evanescence - Going Under',
@@ -23,7 +23,7 @@ export const MOCKED_VIDEO_DETAILS: VideoDetail[] = [
     author: 'EvanescenceVEVO',
     id: 'CdhqVtpR2ts',
     url: 'https://www.youtube.com/watch?v=CdhqVtpR2ts&ab_channel=EvanescenceVEVO',
-    userName: 'Jubba',
+    userName: 'User name',
   },
   {
     author: 'MissKilljoy1690',
@@ -35,6 +35,30 @@ export const MOCKED_VIDEO_DETAILS: VideoDetail[] = [
     },
     title: 'Sonata Arctica - FullMoon',
     url: 'https://www.youtube.com/watch?v=cfI8o_hzaDk&ab_channel=MissKilljoy1690',
-    userName: 'Jubba',
+    userName: 'User name',
+  },
+  {
+    author: 'Nightwish',
+    id: 'wEERFBI9eCg',
+    thumbnail: {
+      height: 90,
+      url: 'https://i.ytimg.com/vi/wEERFBI9eCg/default.jpg',
+      width: 120,
+    },
+    title: 'Nightwish - Wish I Had An Angel (OFFICIAL VIDEO)',
+    url: 'https://www.youtube.com/watch?v=wEERFBI9eCg&ab_channel=Nightwish',
+    userName: 'User name',
+  },
+  {
+    author: 'Century Media Records',
+    id: 'UNPKGyYzPCo',
+    thumbnail: {
+      height: 90,
+      url: 'https://i.ytimg.com/vi/UNPKGyYzPCo/default.jpg',
+      width: 120,
+    },
+    title: 'ARCH ENEMY - Nemesis (Live at Wacken 2016)',
+    url: 'https://www.youtube.com/watch?v=UNPKGyYzPCo&ab_channel=CenturyMediaRecords',
+    userName: 'User name',
   },
 ]
