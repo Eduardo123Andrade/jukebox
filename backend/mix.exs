@@ -45,7 +45,9 @@ defmodule Backend.MixProject do
       {:tesla, "~> 1.4"},
       {:hackney, "~> 1.17"},
       {:dotenv, "~> 2.0"},
-      {:cors_plug, "~> 3.0"}
+      {:cors_plug, "~> 3.0"},
+      {:elixir_uuid, "~> 1.2"},
+
     ]
   end
 

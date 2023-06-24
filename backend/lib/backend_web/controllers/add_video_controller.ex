@@ -19,6 +19,7 @@ defmodule BackendWeb.AddVideoController do
       video_detail
       |> Map.put(:user_name, name)
       |> Map.put(:url, url)
+      |> Map.put(:id, UUID.uuid4())
       |> Add.call()
       |> Send.call()
 
