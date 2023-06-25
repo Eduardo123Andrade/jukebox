@@ -4,7 +4,6 @@ defmodule BackendWeb.RoomChannel do
 
   @impl true
   def join("room:lobby", payload, socket) do
-    IO.inspect(payload, label: "PAYLOAD")
     {:ok, socket}
   end
 
