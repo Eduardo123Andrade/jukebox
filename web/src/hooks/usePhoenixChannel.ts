@@ -12,8 +12,16 @@ interface ChannelVideoList {
   url: string
 }
 
+interface Response {
+  current_video: ChannelVideoList
+  video_list: ChannelVideoList[]
+}
+
 interface UsePhoenixChannelProps {
-  onUpdateVideoList: (videoList: VideoDetail[]) => void
+  onUpdateVideoListAndCurrentVideo: (
+    currentVideo: VideoDetail,
+    videoList: VideoDetail[]
+  ) => void
 }
 
 interface UsePhoenixChannelData {
@@ -25,7 +33,7 @@ type UsePhoenixChannelFunction = (
 ) => UsePhoenixChannelData
 
 export const usePhoenixChannel: UsePhoenixChannelFunction = ({
-  onUpdateVideoList,
+  onUpdateVideoListAndCurrentVideo,
 }) => {
   const channel = useMemo(() => {
     const socket = new Socket('ws://localhost:4000/socket', {
@@ -43,15 +51,23 @@ export const usePhoenixChannel: UsePhoenixChannelFunction = ({
     return channel
   }, [])
 
-  channel.on('update_video_list', (response: ChannelVideoList[]) => {
-    const mappedList: VideoDetail[] = response.map(
-      ({ user_name, video_id, ...rest }) => ({
-        ...rest,
-        videoId: video_id,
-        userName: user_name,
-      })
-    )
-    onUpdateVideoList(mappedList)
+  const formatResponse = (data: ChannelVideoList) => {
+    if (!data) return null
+    const { user_name, video_id, ...rest } = data
+    const currentVideo: VideoDetail = {
+      ...rest,
+      userName: user_name,
+      videoId: video_id,
+    }
+    return currentVideo
+  }
+
+  channel.on('update_video_list', (response: Response) => {
+    const { current_video, video_list } = response
+    const currentVideo = formatResponse(current_video)
+    const mappedList = video_list.map(formatResponse)
+
+    onUpdateVideoListAndCurrentVideo(currentVideo, mappedList)
   })
 
   const onPlayVideo = () => {
