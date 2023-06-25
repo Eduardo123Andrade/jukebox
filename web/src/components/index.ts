@@ -1,3 +1,4 @@
+export { Checkbox } from './Checkbox'
 export { Header } from './Header'
 export { Player } from './Player'
 export { NoVideo } from './NoVideo'

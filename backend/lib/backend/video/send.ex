@@ -1,9 +1,9 @@
 defmodule Backend.Video.Send do
   alias BackendWeb.Endpoint
 
-  def call(video_list) do
-    # IO.inspect(video_list, label: "VIDEO_LIST")
+  def call(current_state) do
+    %{video_list: video_list} = current_state
     IO.inspect(Enum.count(video_list), label: "Count")
-    Endpoint.broadcast("room:lobby", "update_video_list", video_list)
+    Endpoint.broadcast("room:lobby", "update_video_list", current_state)
   end
 end

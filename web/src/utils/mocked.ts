@@ -2,6 +2,7 @@ import { VideoDetail } from '@/interfaces'
 
 export const MOCKED_VIDEO_DETAILS: VideoDetail[] = [
   {
+    id: '1',
     title: 'ARCH ENEMY - The Eagle Flies Alone (OFFICIAL VIDEO)',
     thumbnail: {
       url: 'https://i.ytimg.com/vi/mjF1rmSV1dM/default.jpg',
@@ -9,11 +10,12 @@ export const MOCKED_VIDEO_DETAILS: VideoDetail[] = [
       height: 90,
     },
     author: 'Century Media Records',
-    id: 'mjF1rmSV1dM',
+    videoId: 'mjF1rmSV1dM',
     url: 'https://www.youtube.com/watch?v=mjF1rmSV1dM&ab_channel=CenturyMediaRecords',
     userName: 'User name',
   },
   {
+    id: '2',
     title: 'Evanescence - Going Under',
     thumbnail: {
       url: 'https://i.ytimg.com/vi/CdhqVtpR2ts/default.jpg',
@@ -21,13 +23,14 @@ export const MOCKED_VIDEO_DETAILS: VideoDetail[] = [
       height: 90,
     },
     author: 'EvanescenceVEVO',
-    id: 'CdhqVtpR2ts',
+    videoId: 'CdhqVtpR2ts',
     url: 'https://www.youtube.com/watch?v=CdhqVtpR2ts&ab_channel=EvanescenceVEVO',
     userName: 'User name',
   },
   {
+    id: '3',
     author: 'MissKilljoy1690',
-    id: 'cfI8o_hzaDk',
+    videoId: 'cfI8o_hzaDk',
     thumbnail: {
       height: 90,
       url: 'https://i.ytimg.com/vi/cfI8o_hzaDk/default.jpg',
@@ -38,8 +41,9 @@ export const MOCKED_VIDEO_DETAILS: VideoDetail[] = [
     userName: 'User name',
   },
   {
+    id: '4',
     author: 'Nightwish',
-    id: 'wEERFBI9eCg',
+    videoId: 'wEERFBI9eCg',
     thumbnail: {
       height: 90,
       url: 'https://i.ytimg.com/vi/wEERFBI9eCg/default.jpg',
@@ -50,8 +54,9 @@ export const MOCKED_VIDEO_DETAILS: VideoDetail[] = [
     userName: 'User name',
   },
   {
+    id: '5',
     author: 'Century Media Records',
-    id: 'UNPKGyYzPCo',
+    videoId: 'UNPKGyYzPCo',
     thumbnail: {
       height: 90,
       url: 'https://i.ytimg.com/vi/UNPKGyYzPCo/default.jpg',

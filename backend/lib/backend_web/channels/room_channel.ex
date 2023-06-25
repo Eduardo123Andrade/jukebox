@@ -1,4 +1,5 @@
 defmodule BackendWeb.RoomChannel do
+  alias Backend.Server.Client
   use BackendWeb, :channel
 
   @impl true
@@ -19,6 +20,11 @@ defmodule BackendWeb.RoomChannel do
   @impl true
   def handle_in("shout", payload, socket) do
     broadcast(socket, "shout", payload)
+    {:noreply, socket}
+  end
+
+  def handle_in("play_video", _payload, socket) do
+    Client.play_video()
     {:noreply, socket}
   end
 end

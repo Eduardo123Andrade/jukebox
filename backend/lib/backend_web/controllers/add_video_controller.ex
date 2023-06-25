@@ -1,5 +1,4 @@
 defmodule BackendWeb.AddVideoController do
-  alias Backend.Video.Send
   alias Backend.Video.Add
   alias Youtube.VideoDetail
   use BackendWeb, :controller
@@ -19,8 +18,8 @@ defmodule BackendWeb.AddVideoController do
       video_detail
       |> Map.put(:user_name, name)
       |> Map.put(:url, url)
+      |> Map.put(:id, UUID.uuid4())
       |> Add.call()
-      |> Send.call()
 
       conn
       |> put_status(:ok)

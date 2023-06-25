@@ -1,18 +1,20 @@
 import { usePlayer } from '@/hooks/usePlayer'
 import { VideoDetail as VideoDetailInterface } from '@/interfaces'
-import { useRef } from 'react'
-import YouTubePlayer, { YouTubeProps } from 'react-youtube'
+import { useRef, useState } from 'react'
+import YouTubePlayer, { YouTubeEvent, YouTubeProps } from 'react-youtube'
 import { NoVideo } from './NoVideo'
 import { VideoDetail } from './VideoDetail'
+import { Checkbox } from './Checkbox'
 
 interface PlayerProps {}
 
-const renderVideoItem = (video: VideoDetailInterface) => {
-  return <VideoDetail key={video.id} video={video} />
+const renderVideoItem = (video: VideoDetailInterface, index: number) => {
+  return <VideoDetail key={video.id} video={video} showPlaying={!index} />
 }
 
 export const Player: React.FC<PlayerProps> = ({}) => {
-  const [{ videos, currentVideo }, { onNextVideo }] = usePlayer()
+  const [{ videos, currentVideo }, { onNextVideo, onPlayVideo }] = usePlayer()
+  const [showVideo, setShowVideo] = useState(false)
 
   const ref = useRef<YouTubePlayer>(null)
 
@@ -21,30 +23,46 @@ export const Player: React.FC<PlayerProps> = ({}) => {
     width: '100%',
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
-      // autoplay: 1,
+      autoplay: 1,
       controls: 1,
     },
   }
+  const onToggleVideo = () => setShowVideo((prevState) => !prevState)
 
-  if (!videos.length) return <></>
+  const auxList = [currentVideo, ...videos]
+
+  const onPlay = (event: YouTubeEvent<number>) => {
+    onPlayVideo()
+  }
+
+  if (!currentVideo)
+    return (
+      <Checkbox
+        checked={showVideo}
+        onChange={onToggleVideo}
+        label="Exibir video"
+      />
+    )
 
   return (
     <div>
-      {!!currentVideo && (
+      <Checkbox
+        className="pb-2"
+        checked={showVideo}
+        onChange={onToggleVideo}
+        label="Exibir video"
+      />
+      {!!currentVideo && showVideo && (
         <YouTubePlayer
           ref={ref}
-          videoId={currentVideo.id}
+          videoId={currentVideo.videoId}
           onEnd={onNextVideo}
           opts={opts}
-          onPlay={(event) => {
-            event.data
-            console.log({ event })
-            console.log(event.data)
-          }}
+          onPlay={onPlay}
         />
       )}
       {!currentVideo && videos.length && <NoVideo />}
-      <div className="pt-5">{videos.map(renderVideoItem)}</div>
+      <div className="pt-5">{auxList.map(renderVideoItem)}</div>
     </div>
   )
 }

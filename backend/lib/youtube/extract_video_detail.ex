@@ -5,12 +5,12 @@ defmodule Youtube.ExtractVideoDetail do
 
   defp extract_video_detail(items) do
     [details] = items
-    %{"snippet" => snippet, "id" => id} = details
+    %{"snippet" => snippet, "id" => video_id} = details
     %{"title" => title, "channelTitle" => author, "thumbnails" => thumbnails} = snippet
 
     thumbnail = get_thumbnail_data(thumbnails)
 
-    %{title: title, author: author, thumbnail: thumbnail, id: id}
+    %{title: title, author: author, thumbnail: thumbnail, video_id: video_id}
   end
 
   defp get_thumbnail_data(thumbnails) do
