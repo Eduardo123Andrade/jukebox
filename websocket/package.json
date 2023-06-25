@@ -1,0 +1,12 @@
+{
+  "name": "websocket",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node client.js"
+  },
+  "dependencies": {
+    "phoenix-channels": "^1.0.0"
+  }
+}
