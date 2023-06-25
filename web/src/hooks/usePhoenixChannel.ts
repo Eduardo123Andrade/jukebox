@@ -36,10 +36,13 @@ export const usePhoenixChannel: UsePhoenixChannelFunction = ({
   onUpdateVideoListAndCurrentVideo,
 }) => {
   const channel = useMemo(() => {
-    const socket = new Socket('ws://localhost:4000/socket', {
-      // logger: (kind: string, message: string, data: unknown) =>
-      // console.log(`${kind}: ${message}`, data),
-    })
+    const socket = new Socket(
+      'ws://difficult-clever-moray.gigalixirapp.com/socket',
+      {
+        // logger: (kind: string, message: string, data: unknown) =>
+        // console.log(`${kind}: ${message}`, data),
+      }
+    )
 
     socket.connect()
 

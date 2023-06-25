@@ -1,4 +1,5 @@
 import { VideoDetail as VideoDetailInterface } from '@/interfaces'
+import Image from 'next/image'
 import React from 'react'
 
 interface VideoDetailProps {
@@ -17,7 +18,7 @@ export const VideoDetail: React.FC<VideoDetailProps> = ({
     <div className="flex columns-2 gap-5 border-b border-b-gray-600 bg-gray-800">
       <div className="flex flex-col justify-center">
         <label className="text-sm text-gray-400">{userName}</label>
-        <img src={thumbnail.url} alt={alt} />
+        <Image src={thumbnail.url} alt={alt} />
       </div>
       <div className="flex flex-col justify-center gap-2 text-white">
         <h3>{title}</h3>

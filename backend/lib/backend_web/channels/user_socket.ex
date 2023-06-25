@@ -23,7 +23,6 @@ defmodule BackendWeb.UserSocket do
   # performing token verification on connect.
   @impl true
   def connect(_params, socket, _connect_info) do
-    IO.inspect(socket, label: "USER_SOCKET, CONNECT")
     {:ok, socket}
   end
 
