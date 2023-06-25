@@ -37,7 +37,8 @@ export const usePhoenixChannel: UsePhoenixChannelFunction = ({
 }) => {
   const channel = useMemo(() => {
     const socket = new Socket(
-      'ws://difficult-clever-moray.gigalixirapp.com/socket',
+      'wss://difficult-clever-moray.gigalixirapp.com/socket',
+      // 'ws://localhost:4000/socket',
       {
         // logger: (kind: string, message: string, data: unknown) =>
         // console.log(`${kind}: ${message}`, data),
