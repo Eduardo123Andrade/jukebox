@@ -3,9 +3,13 @@ import React from 'react'
 
 interface VideoDetailProps {
   video: VideoDetailInterface
+  showPlaying?: boolean
 }
 
-export const VideoDetail: React.FC<VideoDetailProps> = ({ video }) => {
+export const VideoDetail: React.FC<VideoDetailProps> = ({
+  video,
+  showPlaying = false,
+}) => {
   const { thumbnail, title, author, userName } = video
   const alt = `Thumbnail - ${title}`
 
@@ -18,6 +22,7 @@ export const VideoDetail: React.FC<VideoDetailProps> = ({ video }) => {
       <div className="flex flex-col justify-center gap-2 text-white">
         <h3>{title}</h3>
         <h6>{author}</h6>
+        {showPlaying && <h6 className="text-gray-400">Assistindo...</h6>}
       </div>
     </div>
   )
