@@ -64,7 +64,6 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
 
   return (
     <PlayerContext.Provider
-      children={children}
       value={[
         { currentVideo, videos },
         {
@@ -72,6 +71,8 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
           onPlayVideo: _onPlayVideo,
         },
       ]}
-    />
+    >
+      {children}
+    </PlayerContext.Provider>
   )
 }
