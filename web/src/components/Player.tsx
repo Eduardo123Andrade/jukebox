@@ -1,18 +1,20 @@
 import { usePlayer } from '@/hooks/usePlayer'
 import { VideoDetail as VideoDetailInterface } from '@/interfaces'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import YouTubePlayer, { YouTubeEvent, YouTubeProps } from 'react-youtube'
 import { NoVideo } from './NoVideo'
 import { VideoDetail } from './VideoDetail'
+import { Checkbox } from './Checkbox'
 
 interface PlayerProps {}
 
-const renderVideoItem = (video: VideoDetailInterface) => {
-  return <VideoDetail key={video.id} video={video} />
+const renderVideoItem = (video: VideoDetailInterface, index: number) => {
+  return <VideoDetail key={video.id} video={video} showPlaying={!index} />
 }
 
 export const Player: React.FC<PlayerProps> = ({}) => {
   const [{ videos, currentVideo }, { onNextVideo, onPlayVideo }] = usePlayer()
+  const [showVideo, setShowVideo] = useState(false)
 
   const ref = useRef<YouTubePlayer>(null)
 
@@ -25,19 +27,32 @@ export const Player: React.FC<PlayerProps> = ({}) => {
       controls: 1,
     },
   }
+  const onToggleVideo = () => setShowVideo((prevState) => !prevState)
 
   const auxList = [currentVideo, ...videos]
 
   const onPlay = (event: YouTubeEvent<number>) => {
-    // console.log(event.data)
     onPlayVideo()
   }
 
-  if (!currentVideo) return <></>
+  if (!currentVideo)
+    return (
+      <Checkbox
+        checked={showVideo}
+        onChange={onToggleVideo}
+        label="Exibir video"
+      />
+    )
 
   return (
     <div>
-      {!!currentVideo && (
+      <Checkbox
+        className="pb-2"
+        checked={showVideo}
+        onChange={onToggleVideo}
+        label="Exibir video"
+      />
+      {!!currentVideo && showVideo && (
         <YouTubePlayer
           ref={ref}
           videoId={currentVideo.videoId}
