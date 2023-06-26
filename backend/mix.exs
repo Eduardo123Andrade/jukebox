@@ -44,7 +44,6 @@ defmodule Backend.MixProject do
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:tesla, "~> 1.4"},
       {:hackney, "~> 1.17"},
-      {:dotenv, "~> 2.0", only: [:dev]},
       {:cors_plug, "~> 3.0"},
       {:elixir_uuid, "~> 1.2"}
     ]
