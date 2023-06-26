@@ -1,6 +1,8 @@
 import axios from 'axios'
+import { ENVIRONMENT_VARIABLES } from '@/config'
+
+const { NEXT_PUBLIC_BASE_URL_API } = ENVIRONMENT_VARIABLES
 
 export const API = axios.create({
-  baseURL: 'https://difficult-clever-moray.gigalixirapp.com/api',
-  // baseURL: 'http://localhost:4000/api',
+  baseURL: NEXT_PUBLIC_BASE_URL_API,
 })

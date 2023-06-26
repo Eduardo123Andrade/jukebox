@@ -1,6 +1,9 @@
 import { useMemo } from 'react'
 import { Socket } from 'phoenix-channels'
 import { Thumbnail, VideoDetail } from '@/interfaces'
+import { ENVIRONMENT_VARIABLES } from '@/config'
+
+const { NEXT_PUBLIC_CHANNEL_URL } = ENVIRONMENT_VARIABLES
 
 interface ChannelVideoList {
   id: string
@@ -36,14 +39,10 @@ export const usePhoenixChannel: UsePhoenixChannelFunction = ({
   onUpdateVideoListAndCurrentVideo,
 }) => {
   const channel = useMemo(() => {
-    const socket = new Socket(
-      'wss://difficult-clever-moray.gigalixirapp.com/socket',
-      // 'ws://localhost:4000/socket',
-      {
-        // logger: (kind: string, message: string, data: unknown) =>
-        // console.log(`${kind}: ${message}`, data),
-      }
-    )
+    const socket = new Socket(NEXT_PUBLIC_CHANNEL_URL, {
+      // logger: (kind: string, message: string, data: unknown) =>
+      // console.log(`${kind}: ${message}`, data),
+    })
 
     socket.connect()
 
