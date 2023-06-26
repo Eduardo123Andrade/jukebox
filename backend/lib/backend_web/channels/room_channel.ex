@@ -3,7 +3,7 @@ defmodule BackendWeb.RoomChannel do
   use BackendWeb, :channel
 
   @impl true
-  def join("room:lobby", payload, socket) do
+  def join("room:lobby", _payload, socket) do
     {:ok, socket}
   end
 
