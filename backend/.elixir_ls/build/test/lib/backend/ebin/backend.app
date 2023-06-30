@@ -1,5 +1,6 @@
 {application,backend,
              [{compile_env,[{backend,['Elixir.BackendWeb.Gettext'],error}]},
+              {optional_applications,[]},
               {applications,[kernel,stdlib,elixir,logger,runtime_tools,
                              phoenix,phoenix_live_dashboard,swoosh,
                              telemetry_metrics,telemetry_poller,gettext,jason,
