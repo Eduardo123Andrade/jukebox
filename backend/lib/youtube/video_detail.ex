@@ -18,6 +18,7 @@ defmodule Youtube.VideoDetail do
 
   defp handle_get({:ok, %Env{status: 200, body: %{"items" => items}}}) when length(items) > 0 do
     video_detail = ExtractVideoDetail.call(items)
+
     {:ok, video_detail}
   end
 
