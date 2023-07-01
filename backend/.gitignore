@@ -25,3 +25,6 @@ backend-*.tar
 # environment
 .env
 /config/dev.secret.exs
+
+# .elixir_ls
+.elixir_ls
