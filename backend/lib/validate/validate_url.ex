@@ -1,6 +1,6 @@
 defmodule Validate.ValidateUrl do
   alias Backend.Error
-  @pattern ~r/v=(.*?)&/
+  @pattern ~r/v=([a-zA-Z0-9_-]{11})/
 
   def call(url) do
     @pattern
