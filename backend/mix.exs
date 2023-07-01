@@ -5,7 +5,7 @@ defmodule Backend.MixProject do
     [
       app: :backend,
       version: "0.1.0",
-      elixir: "~> 1.12",
+      elixir: "~> 1.15",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -44,7 +44,6 @@ defmodule Backend.MixProject do
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:tesla, "~> 1.4"},
       {:hackney, "~> 1.17"},
-      {:dotenv, "~> 2.0", only: [:dev]},
       {:cors_plug, "~> 3.0"},
       {:elixir_uuid, "~> 1.2"}
     ]
