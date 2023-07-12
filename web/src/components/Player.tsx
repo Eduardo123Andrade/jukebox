@@ -35,18 +35,18 @@ export const Player: React.FC<PlayerProps> = ({}) => {
     onPlayVideo()
   }
 
-  if (!currentVideo)
-    return (
-      <Checkbox
-        checked={showVideo}
-        onChange={onToggleVideo}
-        label="Exibir video"
-      />
-    )
+  // if (!currentVideo)
+  //   return (
+  //     <Checkbox
+  //       checked={showVideo}
+  //       onChange={onToggleVideo}
+  //       label="Exibir video"
+  //     />
+  //   )
 
   return (
     <div>
-      <Checkbox
+      {/* <Checkbox
         className="pb-2"
         checked={showVideo}
         onChange={onToggleVideo}
@@ -62,7 +62,7 @@ export const Player: React.FC<PlayerProps> = ({}) => {
         />
       )}
       {!currentVideo && videos.length && <NoVideo />}
-      <div className="pt-5">{auxList.map(renderVideoItem)}</div>
+      <div className="pt-5">{auxList.map(renderVideoItem)}</div> */}
     </div>
   )
 }

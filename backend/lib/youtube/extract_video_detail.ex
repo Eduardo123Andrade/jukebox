@@ -1,6 +1,12 @@
 defmodule Youtube.ExtractVideoDetail do
+  alias Backend.VideoStruct.VideoData
+  alias Backend.VideoStruct.Thumbnail
+
   def call(items) do
-    extract_video_detail(items)
+    response = extract_video_detail(items)
+    IO.inspect(response, label: "RESPONSE")
+
+    response
   end
 
   defp extract_video_detail(items) do
@@ -10,7 +16,7 @@ defmodule Youtube.ExtractVideoDetail do
 
     thumbnail = get_thumbnail_data(thumbnails)
 
-    %{title: title, author: author, thumbnail: thumbnail, video_id: video_id}
+    %VideoData{title: title, author: author, thumbnail: thumbnail, video_id: video_id}
   end
 
   defp get_thumbnail_data(thumbnails) do
@@ -22,7 +28,7 @@ defmodule Youtube.ExtractVideoDetail do
       "width" => width
     } = default
 
-    %{
+    %Thumbnail{
       height: height,
       url: url,
       width: width

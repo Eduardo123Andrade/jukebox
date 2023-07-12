@@ -31,9 +31,9 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
   const [playerStatus, setPlayerStatus] = useState<PlayerStatus>('IDLE')
   const [videos, setVideos] = useState<VideoDetail[]>([])
 
-  const { onPlayVideo } = usePhoenixChannel({
-    onUpdateVideoListAndCurrentVideo,
-  })
+  // const { onPlayVideo } = usePhoenixChannel({
+  //   onUpdateVideoListAndCurrentVideo,
+  // })
 
   useEffect(() => {
     if (!!videos.length && !currentVideo) {
@@ -45,12 +45,12 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
 
   const onNextVideo = () => {
     if (videos.length) {
-      onPlayVideo()
+      // onPlayVideo()
     }
   }
 
   const _onPlayVideo = () => {
-    if (playerStatus !== 'PLAYING') onPlayVideo()
+    // if (playerStatus !== 'PLAYING') onPlayVideo()
     setPlayerStatus('PLAYING')
   }
 
