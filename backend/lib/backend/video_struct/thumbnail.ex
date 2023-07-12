@@ -1,5 +1,7 @@
 defmodule Backend.VideoStruct.Thumbnail do
-  defstruct height: 0,
-            url: "",
-            width: 0
+  @keys [height: 0, url: "", width: 0]
+
+  @derive {Jason.Encoder, @keys}
+
+  defstruct @keys
 end
