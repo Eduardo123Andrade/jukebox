@@ -4,6 +4,7 @@ defmodule BackendWeb.RoomChannel do
 
   @impl true
   def join("room:lobby", _payload, socket) do
+    send(self(), :after_join)
     {:ok, socket}
   end
 
@@ -22,8 +23,16 @@ defmodule BackendWeb.RoomChannel do
     {:noreply, socket}
   end
 
+  @impl true
   def handle_in("play_video", _payload, socket) do
     Client.play_video()
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info(:after_join, socket) do
+    jukebox_data = Client.get()
+    push(socket, "welcome", jukebox_data)
     {:noreply, socket}
   end
 end
