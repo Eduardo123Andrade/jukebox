@@ -2,12 +2,7 @@ defmodule Youtube.ExtractVideoDetail do
   alias Backend.VideoStruct.VideoData
   alias Backend.VideoStruct.Thumbnail
 
-  def call(items) do
-    response = extract_video_detail(items)
-    IO.inspect(response, label: "RESPONSE")
-
-    response
-  end
+  def call(items), do: extract_video_detail(items)
 
   defp extract_video_detail(items) do
     [details] = items
