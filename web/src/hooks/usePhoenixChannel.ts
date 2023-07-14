@@ -29,11 +29,31 @@ interface UsePhoenixChannelProps {
 
 interface UsePhoenixChannelData {
   onPlayVideo: () => void
+  onStopVideo: () => void
 }
 
 type UsePhoenixChannelFunction = (
   props: UsePhoenixChannelProps
 ) => UsePhoenixChannelData
+
+const formatResponse = (data: ChannelVideoList) => {
+  if (!data) return null
+  const { user_name, video_id, ...rest } = data
+  const currentVideo: VideoDetail = {
+    ...rest,
+    userName: user_name,
+    videoId: video_id,
+  }
+  return currentVideo
+}
+
+const test = (response: Response) => {
+  const { current_video, video_list } = response
+  const currentVideo = formatResponse(current_video)
+  const mappedList = video_list.map(formatResponse)
+
+  return { currentVideo, mappedList }
+}
 
 export const usePhoenixChannel: UsePhoenixChannelFunction = ({
   onUpdateVideoListAndCurrentVideo,
@@ -54,21 +74,14 @@ export const usePhoenixChannel: UsePhoenixChannelFunction = ({
     return channel
   }, [])
 
-  const formatResponse = (data: ChannelVideoList) => {
-    if (!data) return null
-    const { user_name, video_id, ...rest } = data
-    const currentVideo: VideoDetail = {
-      ...rest,
-      userName: user_name,
-      videoId: video_id,
-    }
-    return currentVideo
-  }
-
   channel.on('update_video_list', (response: Response) => {
-    const { current_video, video_list } = response
-    const currentVideo = formatResponse(current_video)
-    const mappedList = video_list.map(formatResponse)
+    const { currentVideo, mappedList } = test(response)
+
+    onUpdateVideoListAndCurrentVideo(currentVideo, mappedList)
+  })
+
+  channel.on('welcome', (response: Response) => {
+    const { currentVideo, mappedList } = test(response)
 
     onUpdateVideoListAndCurrentVideo(currentVideo, mappedList)
   })
@@ -77,7 +90,12 @@ export const usePhoenixChannel: UsePhoenixChannelFunction = ({
     channel.push('play_video', {})
   }
 
+  const onStopVideo = () => {
+    channel.push('stop_video', {})
+  }
+
   return {
     onPlayVideo,
+    onStopVideo,
   }
 }

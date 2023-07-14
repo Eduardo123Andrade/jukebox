@@ -13,8 +13,9 @@ const renderVideoItem = (video: VideoDetailInterface, index: number) => {
 }
 
 export const Player: React.FC<PlayerProps> = ({}) => {
-  const [{ videos, currentVideo }, { onNextVideo, onPlayVideo }] = usePlayer()
-  const [showVideo, setShowVideo] = useState(false)
+  const [{ videos, currentVideo }, { onNextVideo, onPlayVideo, onStopVideo }] =
+    usePlayer()
+  const [showVideo, setShowVideo] = useState(true)
 
   const ref = useRef<YouTubePlayer>(null)
 
@@ -31,8 +32,13 @@ export const Player: React.FC<PlayerProps> = ({}) => {
 
   const auxList = [currentVideo, ...videos]
 
-  const onPlay = (event: YouTubeEvent<number>) => {
+  const onPlay = () => {
     onPlayVideo()
+  }
+
+  const onNext = () => {
+    onStopVideo()
+    onNextVideo()
   }
 
   if (!currentVideo)
@@ -56,7 +62,7 @@ export const Player: React.FC<PlayerProps> = ({}) => {
         <YouTubePlayer
           ref={ref}
           videoId={currentVideo.videoId}
-          onEnd={onNextVideo}
+          onEnd={onNext}
           opts={opts}
           onPlay={onPlay}
         />

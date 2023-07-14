@@ -14,10 +14,16 @@ channel
   .join()
   .receive("ok", resp => {
     console.log("CONNECTED")
+    console.log(resp)
+
+    channel.push("play_video", (res) =>{
+      console.log(res, "play_video", {})
+    })
   })
   
-  channel.on("update_video_list", (response) => {
+  channel.on("play_video", (response) => {
     console.log(JSON.stringify(response, null, 2))
     console.log({count: response.length})
     console.log("_____")
   })
+
