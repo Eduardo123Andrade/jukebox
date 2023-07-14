@@ -11,6 +11,7 @@ interface PlayerProviderState {
 interface PlayerProviderActions {
   onNextVideo: () => void
   onPlayVideo: () => void
+  onStopVideo: () => void
 }
 
 type PlayerProviderData = [
@@ -31,9 +32,9 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
   const [playerStatus, setPlayerStatus] = useState<PlayerStatus>('IDLE')
   const [videos, setVideos] = useState<VideoDetail[]>([])
 
-  // const { onPlayVideo } = usePhoenixChannel({
-  //   onUpdateVideoListAndCurrentVideo,
-  // })
+  const { onPlayVideo, onStopVideo } = usePhoenixChannel({
+    onUpdateVideoListAndCurrentVideo,
+  })
 
   useEffect(() => {
     if (!!videos.length && !currentVideo) {
@@ -45,13 +46,17 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
 
   const onNextVideo = () => {
     if (videos.length) {
-      // onPlayVideo()
+      onPlayVideo()
     }
   }
 
   const _onPlayVideo = () => {
-    // if (playerStatus !== 'PLAYING') onPlayVideo()
+    if (playerStatus !== 'PLAYING') onPlayVideo()
     setPlayerStatus('PLAYING')
+  }
+
+  const _onStopVideo = () => {
+    onStopVideo()
   }
 
   function onUpdateVideoListAndCurrentVideo(
@@ -70,6 +75,7 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
         {
           onNextVideo,
           onPlayVideo: _onPlayVideo,
+          onStopVideo: _onStopVideo,
         },
       ]}
     />
