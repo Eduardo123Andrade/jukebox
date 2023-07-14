@@ -33,11 +33,6 @@ defmodule Backend.Server.Server do
     {:reply, data, data}
   end
 
-  # def handle_call(:stop_video, _from, prev_state) do
-  #   {:ok, data} = Actions.stop_video(prev_state)
-  #   {:reply, data, data}
-  # end
-
   def handle_call(:get, _from, prev_sate) do
     {:reply, prev_sate, prev_sate}
   end
