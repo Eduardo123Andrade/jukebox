@@ -2,6 +2,7 @@ defmodule Backend.VideoStruct.VideoData do
   alias Backend.VideoStruct.Thumbnail
 
   @keys [
+    id: "",
     author: "",
     thumbnail: %Thumbnail{},
     title: "",
