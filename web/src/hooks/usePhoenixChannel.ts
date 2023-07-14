@@ -29,6 +29,7 @@ interface UsePhoenixChannelProps {
 
 interface UsePhoenixChannelData {
   onPlayVideo: () => void
+  onStopVideo: () => void
 }
 
 type UsePhoenixChannelFunction = (
@@ -81,7 +82,6 @@ export const usePhoenixChannel: UsePhoenixChannelFunction = ({
 
   channel.on('welcome', (response: Response) => {
     const { currentVideo, mappedList } = test(response)
-    console.log({ currentVideo })
 
     onUpdateVideoListAndCurrentVideo(currentVideo, mappedList)
   })
@@ -90,7 +90,12 @@ export const usePhoenixChannel: UsePhoenixChannelFunction = ({
     channel.push('play_video', {})
   }
 
+  const onStopVideo = () => {
+    channel.push('stop_video', {})
+  }
+
   return {
     onPlayVideo,
+    onStopVideo,
   }
 }
