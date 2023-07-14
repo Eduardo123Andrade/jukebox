@@ -30,6 +30,12 @@ defmodule BackendWeb.RoomChannel do
   end
 
   @impl true
+  def handle_in("stop_video", _payload, socket) do
+    Client.stop_video()
+    {:noreply, socket}
+  end
+
+  @impl true
   def handle_info(:after_join, socket) do
     jukebox_data = Client.get()
     push(socket, "welcome", jukebox_data)
