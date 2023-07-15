@@ -14,8 +14,8 @@ defmodule Backend.Server.Client do
     response
   end
 
-  def stop_video do
-    GenServer.cast(:jukebox_list, :stop_video)
+  def stop_video(id) do
+    GenServer.cast(:jukebox_list, {:stop_video, id})
   end
 
   def get() do
