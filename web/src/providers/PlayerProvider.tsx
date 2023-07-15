@@ -56,7 +56,8 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
   }
 
   const _onStopVideo = () => {
-    onStopVideo()
+    console.log(currentVideo.id)
+    onStopVideo(currentVideo.id)
   }
 
   function onUpdateVideoListAndCurrentVideo(

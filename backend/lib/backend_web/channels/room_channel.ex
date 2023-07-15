@@ -30,8 +30,8 @@ defmodule BackendWeb.RoomChannel do
   end
 
   @impl true
-  def handle_in("stop_video", _payload, socket) do
-    Client.stop_video()
+  def handle_in("stop_video", %{"id" => id}, socket) do
+    Client.stop_video(id)
     {:noreply, socket}
   end
 

@@ -43,8 +43,8 @@ defmodule Backend.Server.Server do
   end
 
   @impl true
-  def handle_cast(:stop_video, state) do
-    {:ok, data} = Actions.stop_video(state)
+  def handle_cast({:stop_video, id}, state) do
+    {:ok, data} = Actions.stop_video(state, id)
     {:noreply, data}
   end
 end

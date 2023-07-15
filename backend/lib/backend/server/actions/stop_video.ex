@@ -1,12 +1,17 @@
 defmodule Backend.Server.Actions.StopVideo do
   alias Backend.Server.JukeboxData
 
-  def call(%JukeboxData{current_video: current_video} = jukebox_data)
+  def call(%JukeboxData{current_video: current_video} = jukebox_data, _id)
       when is_nil(current_video) do
     {:ok, jukebox_data}
   end
 
-  def call(%JukeboxData{current_video: current_video} = jukebox_data) do
+  def call(%JukeboxData{current_video: current_video} = jukebox_data, id)
+      when current_video.id != id do
+    {:ok, jukebox_data}
+  end
+
+  def call(%JukeboxData{current_video: current_video} = jukebox_data, _id) do
     IO.inspect(current_video, label: "CURRENT_VIDEO")
     new_current_video = Map.put(current_video, :status, :stopped)
     IO.inspect(new_current_video, label: "NEW_CURRENT_VIDEO")
