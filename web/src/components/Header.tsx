@@ -13,7 +13,18 @@ interface RequestError {
   message: string
 }
 
-export const Header: React.FC<HeaderProps> = (props) => {
+const getUrl = (url: string) => {
+  const regex = /^(?:https?:\/\/)?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/
+
+  const match = url.match(regex)
+  if (match) {
+    const [, videoId] = match
+    return `https://www.youtube.com/watch?v=${videoId}`
+  }
+  return url
+}
+
+export const Header: React.FC<HeaderProps> = () => {
   const [url, setUrl] = useState<string>('')
   const [name, setName] = useState<string>()
 
@@ -39,9 +50,11 @@ export const Header: React.FC<HeaderProps> = (props) => {
     setName(value)
   }
 
-  const onGetIdFromUrl = ({ target }: Input) => {
+  const onGetUrl = ({ target }: Input) => {
     const { value } = target
-    setUrl(value)
+    const url = getUrl(value)
+
+    setUrl(url)
   }
 
   const addIdOnList = () => {
@@ -74,7 +87,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
             className="rounded"
             placeholder="Cole o link de video do youtube"
             value={url}
-            onChange={onGetIdFromUrl}
+            onChange={onGetUrl}
           />
         </div>
 
