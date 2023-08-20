@@ -78,6 +78,7 @@ export const Player: React.FC<PlayerProps> = ({}) => {
       )}
       {!currentVideo && videos.length && <NoVideo />}
       <div className="pt-5">{auxList.map(renderVideoItem)}</div>
+
       <ToastContainer
         position="top-right"
         autoClose={3000}
