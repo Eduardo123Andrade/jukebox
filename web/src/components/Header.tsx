@@ -1,5 +1,7 @@
+import { usePlayer } from '@/hooks/usePlayer'
 import { usePostRequest } from '@/hooks/usePostRequest'
 import React, { ChangeEvent, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
 
 interface HeaderProps {}
 
@@ -11,6 +13,16 @@ interface Variables {
 }
 interface RequestError {
   message: string
+}
+
+const getUrlId = (url: string) => {
+  const regex = /v=([^&]+)/
+  const match = url.match(regex)
+
+  if (match) {
+    const [, videoId] = match
+    return videoId
+  }
 }
 
 const getUrl = (url: string) => {
@@ -27,6 +39,8 @@ const getUrl = (url: string) => {
 export const Header: React.FC<HeaderProps> = () => {
   const [url, setUrl] = useState<string>('')
   const [name, setName] = useState<string>()
+  const notifyError = (message: string) => toast.error(message)
+  const [{ currentVideo, videos }] = usePlayer()
 
   const { mutate, isLoading } = usePostRequest<
     unknown,
@@ -41,7 +55,8 @@ export const Header: React.FC<HeaderProps> = () => {
         data: { message },
       } = response
 
-      alert(message)
+      notifyError(message)
+      setUrl('')
     },
   })
 
@@ -61,10 +76,24 @@ export const Header: React.FC<HeaderProps> = () => {
     const [firstName, lastName] = name.split(' ')
     const formattedName = `${firstName} ${lastName ?? ''}`.trim()
 
-    mutate({
-      name: formattedName,
-      url,
-    })
+    if (validateUrl(url))
+      return mutate({
+        name: formattedName,
+        url,
+      })
+
+    setUrl('')
+    return notifyError('Esse video já é o ultimo da lista')
+  }
+
+  const validateUrl = (url: string) => {
+    const id = getUrlId(url)
+    if (!id) return false
+
+    return !(
+      videos[videos.length - 1]?.videoId === id ||
+      (!videos.length && currentVideo.videoId === id)
+    )
   }
 
   const disabled = !name || !url || isLoading
@@ -100,6 +129,19 @@ export const Header: React.FC<HeaderProps> = () => {
           <label className="text-white">Adicionar</label>
         </button>
       </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+      />
     </div>
   )
 }
