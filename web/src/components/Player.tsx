@@ -1,10 +1,12 @@
 import { usePlayer } from '@/hooks/usePlayer'
 import { VideoDetail as VideoDetailInterface } from '@/interfaces'
 import { useRef, useState } from 'react'
-import YouTubePlayer, { YouTubeEvent, YouTubeProps } from 'react-youtube'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import YouTubePlayer, { YouTubeProps } from 'react-youtube'
+import { Checkbox } from './Checkbox'
 import { NoVideo } from './NoVideo'
 import { VideoDetail } from './VideoDetail'
-import { Checkbox } from './Checkbox'
 
 interface PlayerProps {}
 
@@ -29,6 +31,7 @@ export const Player: React.FC<PlayerProps> = ({}) => {
     },
   }
   const onToggleVideo = () => setShowVideo((prevState) => !prevState)
+  const notifyError = (message: string) => toast.error(message)
 
   const auxList = [currentVideo, ...videos]
 
@@ -39,6 +42,11 @@ export const Player: React.FC<PlayerProps> = ({}) => {
   const onNext = () => {
     onStopVideo()
     onNextVideo()
+  }
+
+  const onError = () => {
+    notifyError(`O video ${currentVideo.title} não pode ser exibido`)
+    onNext()
   }
 
   if (!currentVideo)
@@ -65,10 +73,23 @@ export const Player: React.FC<PlayerProps> = ({}) => {
           onEnd={onNext}
           opts={opts}
           onPlay={onPlay}
+          onError={onError}
         />
       )}
       {!currentVideo && videos.length && <NoVideo />}
       <div className="pt-5">{auxList.map(renderVideoItem)}</div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+        theme="dark"
+      />
     </div>
   )
 }
