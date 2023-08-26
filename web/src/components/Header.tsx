@@ -92,7 +92,7 @@ export const Header: React.FC<HeaderProps> = () => {
 
     return !(
       videos[videos.length - 1]?.videoId === id ||
-      (!videos.length && currentVideo.videoId === id)
+      (!videos.length && currentVideo?.videoId === id)
     )
   }
 
